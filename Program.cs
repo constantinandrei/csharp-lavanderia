@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 //Una lavanderia è aperta 24 ore su 24 e permette ai clienti di servizi autonomamente di 5 Lavatrici e 5 Asciugatrici.
 //I clienti che usufruiscono delle macchine, possono effettuare diversi programmi di lavaggio e asciugatura ognuno con un costo diverso (in gettoni) e di una specifica durata.
@@ -23,6 +24,7 @@ fastWash.lavatrici[0].AvviaLavaggio("rinnovante");
 fastWash.lavatrici[2].AvviaLavaggio("sgrassante");
 fastWash.StatoMacchine();
 fastWash.lavatrici[0].StatoMacchina();
+fastWash.IncassoTotale();
 
 public class Lavanderia
 {
@@ -56,6 +58,19 @@ public class Lavanderia
         }
 
         Console.WriteLine("--------------------------------");
+    }
+
+    public void IncassoTotale()
+    {
+        int gettoni = 0;
+        for (int i = 0; i < lavatrici.Length; i++)
+        {
+            gettoni += lavatrici[i].Gettoni;
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Incasso totale lavanderia: " + (gettoni * ValoreGettone) + " euro");
+        Console.WriteLine();
     }
 }
 
