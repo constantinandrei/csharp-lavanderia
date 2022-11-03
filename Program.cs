@@ -19,7 +19,9 @@ using System;
 
 
 Lavanderia fastWash = new Lavanderia("Fast Wash");
-Console.WriteLine(fastWash.lavatrici[0].lavaggiDisponibili[2].Nome);
+fastWash.lavatrici[0].AvviaLavaggio("rinnovante");
+fastWash.lavatrici[2].AvviaLavaggio("sgrassante");
+fastWash.StatoMacchine();
 
 public class Lavanderia
 {
@@ -33,6 +35,25 @@ public class Lavanderia
             lavatrici[i] = new Lavatrice(i + 1);
         }
     }
+
+    public void StatoMacchine()
+    {
+        Console.WriteLine("Lavanderia " + Nome);
+        Console.WriteLine("-----------");
+        Console.WriteLine("Stato Lavatrici:");
+        Console.WriteLine("--------------------------------");
+        Console.WriteLine("numero  | stato                 ");
+        Console.WriteLine("--------------------------------");
+        for (int i = 0; i < lavatrici.Length; i++)
+        {
+            string stato = "ferma";
+            if (lavatrici[i].IsActive)
+                stato = "in funzione";
+            Console.WriteLine($"  {lavatrici[i].Id}     | {stato} ");
+        }
+
+        Console.WriteLine("--------------------------------");
+    }
 }
 
 public class Lavatrice
@@ -45,7 +66,6 @@ public class Lavatrice
     public int Ammorbidente { get; set; }
     public int MaxAmmorbidente { get; set; }
     public bool IsActive { get; set; }
-
     public string LavaggioAttuale { get; set; }
    
     public Lavatrice(int id)
