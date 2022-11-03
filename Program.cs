@@ -17,31 +17,46 @@ using System;
 //3 - l’attuale incasso generato dall’utilizzo delle macchine.
 //Buon Lavoro!
 
+Lavatrice test = new Lavatrice(1);
+
 public class Lavatrice
 {
+    private Lavaggio[] lavaggiDisponibili = new Lavaggio[3];
     public int Id { get; }
     public int Gettoni { get; set; }
     public bool IsActive { get; set; }
 
-    public Lavaggi Actual { get; set; }
-    public Lavaggi[] LavaggiDisponibili { get; }
-
-    // inserisco i lavaggi disponibili
-    public class Lavaggi
+    public Lavaggio LavaggioAttuale { get; set; }
+   public Lavaggio LavaggiDisponibili { get; set; }
+    public Lavatrice(int id)
     {
-        public string Nome { get; set; }
-        public int Costo { get; set; }
-        public int Durata { get; set; }
-        public int Detersivo { get; set; }
-        public int Ammorbidente { get; set; }
+        Id = id;
+        Gettoni = 0;
+        IsActive = false;
 
-        public Lavaggi(string nome, int costo, int durata, int detersivo, int ammorbidente)
-        {
-            Nome = nome;
-            Costo = costo;
-            Durata = durata;
-            Detersivo = detersivo;
-            Ammorbidente = ammorbidente;
-        }
+        // inserisco i programmi di lavaggio
+        lavaggiDisponibili[0] = new Lavaggio("rinfrescante", 2, 20, 20, 5);
+        lavaggiDisponibili[1] = new Lavaggio("rinnovante", 3, 40, 40, 10);
+        lavaggiDisponibili[2] = new Lavaggio("sgrassante", 4, 60, 60, 15);
+
+    }
+
+}
+
+public class Lavaggio
+{
+    public string Nome { get; set; }
+    public int Costo { get; set; }
+    public int Durata { get; set; }
+    public int Detersivo { get; set; }
+    public int Ammorbidente { get; set; }
+
+    public Lavaggio(string nome, int costo, int durata, int detersivo, int ammorbidente)
+    {
+        Nome = nome;
+        Costo = costo;
+        Durata = durata;
+        Detersivo = detersivo;
+        Ammorbidente = ammorbidente;
     }
 }
