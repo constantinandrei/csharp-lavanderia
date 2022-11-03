@@ -117,7 +117,7 @@ public class Lavatrice
     public int MaxAmmorbidente { get; set; }
     public int DurataLavaggio { get; set; }
     public bool IsActive { get; set; }
-    public string LavaggioAttuale { get; set; }
+    public Lavaggio LavaggioAttuale { get; set; }
    
     public Lavatrice(int id)
     {
@@ -154,7 +154,7 @@ public class Lavatrice
 
         if (lavaggioTrovato)
         {
-            LavaggioAttuale = lavaggiDisponibili[indiceLavaggio].Nome;
+            LavaggioAttuale = lavaggiDisponibili[indiceLavaggio];
             Detersivo -= lavaggiDisponibili[indiceLavaggio].Detersivo;
             Ammorbidente -= lavaggiDisponibili[indiceLavaggio].Ammorbidente;
             Gettoni += lavaggiDisponibili[indiceLavaggio].Costo;
@@ -177,7 +177,7 @@ public class Lavatrice
         Console.WriteLine("Stato:             {0}", stato);
         if (IsActive) 
         {
-            Console.WriteLine("Lavaggio:          {0}", LavaggioAttuale);
+            Console.WriteLine("Lavaggio:          {0}", LavaggioAttuale.Nome);
             Console.WriteLine("Durata Lavaggio:   min {0}", DurataLavaggio);
         }
         Console.WriteLine("Detersivo:         ml {0}", Detersivo);
@@ -212,7 +212,7 @@ public class Asciugatrice
     public int DurataAsciugatura { get; set; }
     public int Gettoni { get; set; }
     public bool IsActive { get; set; }
-    public string AsciugaturaAttuale { get; set; }
+    public Asciugatura AsciugaturaAttuale { get; set; }
 
     public Asciugatrice(int id)
     {
@@ -243,7 +243,7 @@ public class Asciugatrice
 
         if (asciugaturaTrovata)
         {
-            AsciugaturaAttuale = asciugatureDisponibili[indiceAsciugatura].Nome;
+            AsciugaturaAttuale = asciugatureDisponibili[indiceAsciugatura];
             DurataAsciugatura = asciugatureDisponibili[indiceAsciugatura].Durata;
             Gettoni += asciugatureDisponibili[indiceAsciugatura].Costo;
             IsActive = true;
@@ -264,7 +264,7 @@ public class Asciugatrice
         Console.WriteLine("Stato:                {0}", stato);
         if (IsActive)
         {
-            Console.WriteLine("Asciugatura:          {0}", AsciugaturaAttuale);
+            Console.WriteLine("Asciugatura:          {0}", AsciugaturaAttuale.Nome);
             Console.WriteLine("Durata Asciugatura:   min {0}", DurataAsciugatura);
         }
         Console.WriteLine("Gettoni:              {0}", Gettoni);
