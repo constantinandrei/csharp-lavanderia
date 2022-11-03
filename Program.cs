@@ -27,8 +27,8 @@ fastWash.asciugatrici[2].AvviaAsciugatura("rapido");
 fastWash.asciugatrici[4].AvviaAsciugatura("intenso");
 fastWash.StatoMacchine();
 fastWash.lavatrici[0].StatoMacchina();
-fastWash.lavatrici[1].StatoMacchina();
-fastWash.asciugatrici[4].StatoMacchina();
+fastWash.lavatrici[4].StatoMacchina();
+fastWash.asciugatrici[0].StatoMacchina();
 fastWash.IncassoTotale();
 
 public class Lavanderia
@@ -175,11 +175,13 @@ public class Lavatrice
         if (IsActive)
             stato = "attiva";
         Console.WriteLine("Stato:             {0}", stato);
-        if (IsActive)
+        if (IsActive) 
+        {
             Console.WriteLine("Lavaggio:          {0}", LavaggioAttuale);
+            Console.WriteLine("Durata Lavaggio:   min {0}", DurataLavaggio);
+        }
         Console.WriteLine("Detersivo:         ml {0}", Detersivo);
         Console.WriteLine("Ammorbidente:      ml {0}", Ammorbidente);
-        Console.WriteLine("Durata Lavaggio:   min {0}", DurataLavaggio);
         Console.WriteLine("Gettoni:           {0}", Gettoni);
         Console.WriteLine();
     }
@@ -261,8 +263,10 @@ public class Asciugatrice
             stato = "attiva";
         Console.WriteLine("Stato:                {0}", stato);
         if (IsActive)
+        {
             Console.WriteLine("Asciugatura:          {0}", AsciugaturaAttuale);
-        Console.WriteLine("Durata Asciugatura:   min {0}", DurataAsciugatura);
+            Console.WriteLine("Durata Asciugatura:   min {0}", DurataAsciugatura);
+        }
         Console.WriteLine("Gettoni:              {0}", Gettoni);
         Console.WriteLine();
     }
