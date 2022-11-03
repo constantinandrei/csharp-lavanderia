@@ -22,14 +22,17 @@ Lavanderia fastWash = new Lavanderia("Fast Wash");
 fastWash.lavatrici[0].AvviaLavaggio("rinnovante");
 fastWash.lavatrici[2].AvviaLavaggio("sgrassante");
 fastWash.StatoMacchine();
+fastWash.lavatrici[0].StatoMacchina();
 
 public class Lavanderia
 {
     public string Nome {get;}
     public Lavatrice[] lavatrici = new Lavatrice[5];
+    public double ValoreGettone { get;set;}
     public Lavanderia(string nome)
     {
         Nome = nome;
+        ValoreGettone = 0.5;
         for (int i = 0; i < lavatrici.Length; i++)
         {
             lavatrici[i] = new Lavatrice(i + 1);
@@ -65,6 +68,7 @@ public class Lavatrice
     public int MaxDetersivo { get; set; }
     public int Ammorbidente { get; set; }
     public int MaxAmmorbidente { get; set; }
+    public int DurataLavaggio { get; set; }
     public bool IsActive { get; set; }
     public string LavaggioAttuale { get; set; }
    
@@ -76,6 +80,7 @@ public class Lavatrice
         Gettoni = 0;
         Detersivo = MaxDetersivo;
         Ammorbidente = MaxAmmorbidente;
+        DurataLavaggio = 0;
         IsActive = false;
 
 
@@ -104,12 +109,32 @@ public class Lavatrice
         {
             LavaggioAttuale = lavaggiDisponibili[indiceLavaggio].Nome;
             Detersivo -= lavaggiDisponibili[indiceLavaggio].Detersivo;
-            Detersivo -= lavaggiDisponibili[indiceLavaggio].Ammorbidente;
+            Ammorbidente -= lavaggiDisponibili[indiceLavaggio].Ammorbidente;
             Gettoni += lavaggiDisponibili[indiceLavaggio].Costo;
+            DurataLavaggio = lavaggiDisponibili[indiceLavaggio].Durata;
             IsActive = true;
         }
     }
 
+    //2 - Possa essere richiesto il dettaglio di una macchina:
+    //Tutte le informazioni relative alla macchina, nome del macchinario,
+    //stato del macchinario (in funzione o no), tipo di lavaggio in corso,
+    //quantità di detersivo presente (se una lavatrice), durata del lavaggio.
+    public void StatoMacchina()
+    {
+        Console.WriteLine();
+        Console.WriteLine("Lavatrice:         {0}", Id);
+        string stato = "inattiva";
+        if (IsActive)
+            stato = "attiva";
+        Console.WriteLine("Stato:             {0}", stato);
+        if (IsActive)
+            Console.WriteLine("Lavaggio:          {0}", LavaggioAttuale);
+        Console.WriteLine("Detersivo:         ml {0}", Detersivo);
+        Console.WriteLine("Ammorbidente:      ml {0}", Ammorbidente);
+        Console.WriteLine("Durata Lavaggio:   min {0}", DurataLavaggio);
+        Console.WriteLine();
+    }
 }
 
 public class Lavaggio
