@@ -17,28 +17,77 @@ using System;
 //3 - l’attuale incasso generato dall’utilizzo delle macchine.
 //Buon Lavoro!
 
-Lavatrice test = new Lavatrice(1);
+
+Lavanderia fastWash = new Lavanderia("Fast Wash");
+Console.WriteLine(fastWash.lavatrici[0].lavaggiDisponibili[2].Nome);
+
+public class Lavanderia
+{
+    public string Nome {get;}
+    public Lavatrice[] lavatrici = new Lavatrice[5];
+    public Lavanderia(string nome)
+    {
+        Nome = nome;
+        for (int i = 0; i < lavatrici.Length; i++)
+        {
+            lavatrici[i] = new Lavatrice(i + 1);
+        }
+    }
+}
 
 public class Lavatrice
 {
-    private Lavaggio[] lavaggiDisponibili = new Lavaggio[3];
+    public Lavaggio[] lavaggiDisponibili = new Lavaggio[3];
     public int Id { get; }
     public int Gettoni { get; set; }
+    public int Detersivo { get; set; }
+    public int MaxDetersivo { get; set; }
+    public int Ammorbidente { get; set; }
+    public int MaxAmmorbidente { get; set; }
     public bool IsActive { get; set; }
 
-    public Lavaggio LavaggioAttuale { get; set; }
-   public Lavaggio LavaggiDisponibili { get; set; }
+    public string LavaggioAttuale { get; set; }
+   
     public Lavatrice(int id)
     {
         Id = id;
+        MaxDetersivo = 1000;
+        MaxAmmorbidente = 500;
         Gettoni = 0;
+        Detersivo = MaxDetersivo;
+        Ammorbidente = MaxAmmorbidente;
         IsActive = false;
+
 
         // inserisco i programmi di lavaggio
         lavaggiDisponibili[0] = new Lavaggio("rinfrescante", 2, 20, 20, 5);
         lavaggiDisponibili[1] = new Lavaggio("rinnovante", 3, 40, 40, 10);
         lavaggiDisponibili[2] = new Lavaggio("sgrassante", 4, 60, 60, 15);
 
+    }
+
+    public void AvviaLavaggio(string lavaggio)
+    {
+        bool lavaggioTrovato = false;
+        int indiceLavaggio = 0;
+
+        for (int i = 0; i < lavaggiDisponibili.Length; i++)
+        {
+            if (lavaggio.Equals(lavaggiDisponibili[i].Nome))
+            {
+                indiceLavaggio = i;
+                lavaggioTrovato = true;
+            }
+        }
+
+        if (lavaggioTrovato)
+        {
+            LavaggioAttuale = lavaggiDisponibili[indiceLavaggio].Nome;
+            Detersivo -= lavaggiDisponibili[indiceLavaggio].Detersivo;
+            Detersivo -= lavaggiDisponibili[indiceLavaggio].Ammorbidente;
+            Gettoni += lavaggiDisponibili[indiceLavaggio].Costo;
+            IsActive = true;
+        }
     }
 
 }
