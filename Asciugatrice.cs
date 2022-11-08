@@ -1,11 +1,14 @@
 ﻿// See https://aka.ms/new-console-template for more information
 public class Asciugatrice : MacchinarioLavanderia
 {
+    public Asciugatura[] ProgrammiDisponibili { get; set; }
+
+    public Asciugatura ProgrammaCorrente { get; set; }
 
     public Asciugatrice(int id)
     {
         Id = id;
-        ProgrammiDisponibili = new ProgrammaMacchinario[2];
+        ProgrammiDisponibili = new Asciugatura[2];
 
         // inserisco i programmi di lavaggio
         ProgrammiDisponibili[0] = new Asciugatura("rapido", 2, 30);

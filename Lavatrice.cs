@@ -4,7 +4,10 @@ public class Lavatrice : MacchinarioLavanderia
 
     public Serbatoio Detersivo { get; set; }
     public Serbatoio Ammorbidente { get; set; }
-   
+    public Lavaggio[] ProgrammiDisponibili { get; set; }
+
+    public Lavaggio ProgrammaCorrente { get; set; }
+
     public Lavatrice(int id)
     {
         Id = id;
@@ -12,7 +15,7 @@ public class Lavatrice : MacchinarioLavanderia
         Detersivo = new Serbatoio(1000);
         Ammorbidente = new Serbatoio(500);
 
-        ProgrammiDisponibili = new ProgrammaMacchinario[3];
+        ProgrammiDisponibili = new Lavaggio[3];
 
         // inserisco i programmi di lavaggio
         ProgrammiDisponibili[0] = new Lavaggio("rinfrescante", 2, 20, 20, 5);
@@ -37,7 +40,10 @@ public class Lavatrice : MacchinarioLavanderia
 
         if (lavaggioTrovato)
         {
+
             ProgrammaCorrente = ProgrammiDisponibili[indiceLavaggio];
+            Ammorbidente.UsaLiquido(ProgrammiDisponibili[indiceLavaggio].Ammorbidente); 
+            Detersivo.UsaLiquido(ProgrammiDisponibili[indiceLavaggio].Detersivo); 
             Gettoni += ProgrammiDisponibili[indiceLavaggio].Costo;
         }
     }
