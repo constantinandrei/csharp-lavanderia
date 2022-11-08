@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
+using System.Dynamic;
 using System.Security.Cryptography.X509Certificates;
 
 //Una lavanderia è aperta 24 ore su 24 e permette ai clienti di servizi autonomamente di 5 Lavatrici e 5 Asciugatrici.
@@ -25,83 +26,63 @@ fastWash.lavatrici[2].AvviaProgramma("sgrassante");
 fastWash.asciugatrici[1].AvviaProgramma("rapido");
 fastWash.asciugatrici[2].AvviaProgramma("rapido");
 fastWash.asciugatrici[4].AvviaProgramma("intenso");
-fastWash.StatoMacchine();
-fastWash.lavatrici[0].StatoMacchina();
-fastWash.lavatrici[4].StatoMacchina();
-fastWash.asciugatrici[0].StatoMacchina();
-fastWash.IncassoTotale();
 
-public class Lavanderia
+string[] vociMenu = { "Stato macchine", "Dettaglio Macchina", "Incasso totale" };
+string userInput;
+
+do
 {
-    public string Nome {get;}
-    public Lavatrice[] lavatrici = new Lavatrice[5];
-    public Asciugatrice[] asciugatrici = new Asciugatrice[5];
-    public double ValoreGettone { get;set;}
-    public Lavanderia(string nome)
+    StampaMenu(vociMenu);
+    userInput = Chiedi("Scegliere un azione, scrivere 'esc' per uscire");
+
+    switch (userInput)
     {
-        Nome = nome;
-        ValoreGettone = 0.5;
-        for (int i = 0; i < lavatrici.Length; i++)
-        {
-            lavatrici[i] = new Lavatrice(i + 1);
-        }
-        for (int i = 0; i < asciugatrici.Length; i++)
-        {
-            asciugatrici[i] = new Asciugatrice(i + 1);
-        }
+        case "1":
+            fastWash.StatoMacchine();
+            break;
+        case "2":
+            fastWash.StatoMacchine();
+            string codiceMacchina = Chiedi("per quale macchina vuoi vedere lo stato? (inserire il codice)");
+            StampaStatoMacchina(codiceMacchina);
+            break;
+        case "3":
+            fastWash.IncassoTotale();
+            break;
+        default:
+            break;
     }
+} while (userInput != "esc");
 
-    public void StatoMacchine()
-    {
-        Console.WriteLine("Lavanderia " + Nome);
-        Console.WriteLine("-----------");
-        Console.WriteLine("Stato Lavatrici:");
-        Console.WriteLine("--------------------------------");
-        Console.WriteLine("numero  | stato                 ");
-        Console.WriteLine("--------------------------------");
-        for (int i = 0; i < lavatrici.Length; i++)
-        {
-            string stato = "ferma";
-            if (lavatrici[i].ProgrammaCorrente != null)
-                stato = "in funzione";
-            Console.WriteLine($"  {lavatrici[i].Id}     | {stato} ");
-        }
-
-        Console.WriteLine("--------------------------------");
-        Console.WriteLine();
-        Console.WriteLine("Stato Asciugatrici:");
-        Console.WriteLine("--------------------------------");
-        Console.WriteLine("numero  | stato                 ");
-        Console.WriteLine("--------------------------------");
-        for (int i = 0; i < asciugatrici.Length; i++)
-        {
-            string stato = "ferma";
-            if (asciugatrici[i].ProgrammaCorrente != null)
-                stato = "in funzione";
-            Console.WriteLine($"  {asciugatrici[i].Id}     | {stato} ");
-        }
-
-        Console.WriteLine("--------------------------------");
-        Console.WriteLine();
-    
+string Chiedi(string messaggio)
+{
+    Console.WriteLine(messaggio);
+    return Console.ReadLine();
 }
 
-
-
-    public void IncassoTotale()
+void StampaMenu(string[] voci)
+{
+    int i = 1;
+    foreach (string voce in voci)
     {
-        int gettoni = 0;
-        for (int i = 0; i < lavatrici.Length; i++)
-        {
-            gettoni += lavatrici[i].Gettoni;
-        }
-        for (int i = 0; i < asciugatrici.Length; i++)
-        {
-            gettoni += asciugatrici[i].Gettoni;
-        }
+        Console.WriteLine("{0}. {1}", i, voce);
+        i++;
+    }
+}
 
-        Console.WriteLine();
-        Console.WriteLine("Incasso totale lavanderia: " + (gettoni * ValoreGettone) + " euro");
-        Console.WriteLine();
+void StampaStatoMacchina(string codice)
+{
+    string tipoMacchina = codice.Substring(0, 1);
+    int idMacchina = Convert.ToInt32(codice.Substring(1, 1));
+
+    switch (tipoMacchina)
+    {
+        case "a":
+            fastWash.asciugatrici[idMacchina - 1].StatoMacchina();
+            break;
+        case "l":
+            fastWash.lavatrici[idMacchina - 1].StatoMacchina();
+            break;
+        default:
+            break;
     }
 }
