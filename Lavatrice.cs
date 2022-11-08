@@ -40,11 +40,17 @@ public class Lavatrice : MacchinarioLavanderia
 
         if (lavaggioTrovato)
         {
+            bool controlloDetersivo = Detersivo.ControllaDisponibilità(ProgrammiDisponibili[indiceLavaggio].Detersivo);
+            bool controlloAmmorbidente = Ammorbidente.ControllaDisponibilità(ProgrammiDisponibili[indiceLavaggio].Ammorbidente);
 
-            ProgrammaCorrente = ProgrammiDisponibili[indiceLavaggio];
-            Ammorbidente.UsaLiquido(ProgrammiDisponibili[indiceLavaggio].Ammorbidente); 
-            Detersivo.UsaLiquido(ProgrammiDisponibili[indiceLavaggio].Detersivo); 
-            Gettoni += ProgrammiDisponibili[indiceLavaggio].Costo;
+            if (controlloAmmorbidente && controlloDetersivo)
+            {
+                ProgrammaCorrente = ProgrammiDisponibili[indiceLavaggio];
+                Ammorbidente.UsaLiquido(ProgrammiDisponibili[indiceLavaggio].Ammorbidente);
+                Detersivo.UsaLiquido(ProgrammiDisponibili[indiceLavaggio].Detersivo);
+                Gettoni += ProgrammiDisponibili[indiceLavaggio].Costo;
+            }
+            
         }
     }
 

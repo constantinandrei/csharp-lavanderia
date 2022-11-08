@@ -10,15 +10,23 @@ public class Serbatoio
         Livello = maxVolume;
     }
 
-    public bool UsaLiquido (int ammount)
+    public bool ControllaDisponibilità(int amount)
     {
-        if (Livello >= ammount)
+        if (Livello >= amount)
         {
-            Livello -= ammount;
+            Livello -= amount;
             return true;
         }
 
         return false;
+    }
+
+    public void UsaLiquido (int ammount)
+    {
+        if (Livello >= ammount)
+        {
+            Livello -= ammount;
+        }
     }
 
     public bool Riempi (int ammount)
