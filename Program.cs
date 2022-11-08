@@ -59,27 +59,27 @@ public class Lavanderia
         Console.WriteLine("--------------------------------");
         Console.WriteLine("numero  | stato                 ");
         Console.WriteLine("--------------------------------");
-        for (int i = 0; i < lavatrici.Length; i++)
-        {
-            string stato = "ferma";
-            if (lavatrici[i].IsActive)
-                stato = "in funzione";
-            Console.WriteLine($"  {lavatrici[i].Id}     | {stato} ");
-        }
+        //for (int i = 0; i < lavatrici.Length; i++)
+        //{
+        //    string stato = "ferma";
+        //    if (lavatrici[i].IsActive)
+        //        stato = "in funzione";
+        //    Console.WriteLine($"  {lavatrici[i].Id}     | {stato} ");
+        //}
 
-        Console.WriteLine("--------------------------------");
-        Console.WriteLine();
-        Console.WriteLine("Stato Asciugatrici:");
-        Console.WriteLine("--------------------------------");
-        Console.WriteLine("numero  | stato                 ");
-        Console.WriteLine("--------------------------------");
-        for (int i = 0; i < asciugatrici.Length; i++)
-        {
-            string stato = "ferma";
-            if (asciugatrici[i].IsActive)
-                stato = "in funzione";
-            Console.WriteLine($"  {asciugatrici[i].Id}     | {stato} ");
-        }
+        //Console.WriteLine("--------------------------------");
+        //Console.WriteLine();
+        //Console.WriteLine("Stato Asciugatrici:");
+        //Console.WriteLine("--------------------------------");
+        //Console.WriteLine("numero  | stato                 ");
+        //Console.WriteLine("--------------------------------");
+        //for (int i = 0; i < asciugatrici.Length; i++)
+        //{
+        //    string stato = "ferma";
+        //    if (asciugatrici[i].IsActive)
+        //        stato = "in funzione";
+        //    Console.WriteLine($"  {asciugatrici[i].Id}     | {stato} ");
+        //}
 
         Console.WriteLine("--------------------------------");
         Console.WriteLine();
@@ -103,185 +103,5 @@ public class Lavanderia
         Console.WriteLine();
         Console.WriteLine("Incasso totale lavanderia: " + (gettoni * ValoreGettone) + " euro");
         Console.WriteLine();
-    }
-}
-
-public class Lavatrice
-{
-    public Lavaggio[] lavaggiDisponibili = new Lavaggio[3];
-    public int Id { get; }
-    public int Gettoni { get; set; }
-    public int Detersivo { get; set; }
-    public int MaxDetersivo { get; set; }
-    public int Ammorbidente { get; set; }
-    public int MaxAmmorbidente { get; set; }
-    public int DurataLavaggio { get; set; }
-    public bool IsActive { get; set; }
-    public Lavaggio LavaggioAttuale { get; set; }
-   
-    public Lavatrice(int id)
-    {
-        Id = id;
-        MaxDetersivo = 1000;
-        MaxAmmorbidente = 500;
-        Gettoni = 0;
-        Detersivo = MaxDetersivo;
-        Ammorbidente = MaxAmmorbidente;
-        DurataLavaggio = 0;
-        IsActive = false;
-
-
-        // inserisco i programmi di lavaggio
-        lavaggiDisponibili[0] = new Lavaggio("rinfrescante", 2, 20, 20, 5);
-        lavaggiDisponibili[1] = new Lavaggio("rinnovante", 3, 40, 40, 10);
-        lavaggiDisponibili[2] = new Lavaggio("sgrassante", 4, 60, 60, 15);
-
-    }
-
-    public void AvviaLavaggio(string lavaggio)
-    {
-        bool lavaggioTrovato = false;
-        int indiceLavaggio = 0;
-
-        for (int i = 0; i < lavaggiDisponibili.Length; i++)
-        {
-            if (lavaggio.Equals(lavaggiDisponibili[i].Nome))
-            {
-                indiceLavaggio = i;
-                lavaggioTrovato = true;
-            }
-        }
-
-        if (lavaggioTrovato)
-        {
-            LavaggioAttuale = lavaggiDisponibili[indiceLavaggio];
-            Detersivo -= lavaggiDisponibili[indiceLavaggio].Detersivo;
-            Ammorbidente -= lavaggiDisponibili[indiceLavaggio].Ammorbidente;
-            Gettoni += lavaggiDisponibili[indiceLavaggio].Costo;
-            DurataLavaggio = lavaggiDisponibili[indiceLavaggio].Durata;
-            IsActive = true;
-        }
-    }
-
-    //2 - Possa essere richiesto il dettaglio di una macchina:
-    //Tutte le informazioni relative alla macchina, nome del macchinario,
-    //stato del macchinario (in funzione o no), tipo di lavaggio in corso,
-    //quantità di detersivo presente (se una lavatrice), durata del lavaggio.
-    public void StatoMacchina()
-    {
-        Console.WriteLine();
-        Console.WriteLine("Lavatrice:         {0}", Id);
-        string stato = "inattiva";
-        if (IsActive)
-            stato = "attiva";
-        Console.WriteLine("Stato:             {0}", stato);
-        if (IsActive) 
-        {
-            Console.WriteLine("Lavaggio:          {0}", LavaggioAttuale.Nome);
-            Console.WriteLine("Durata Lavaggio:   min {0}", DurataLavaggio);
-        }
-        Console.WriteLine("Detersivo:         ml {0}", Detersivo);
-        Console.WriteLine("Ammorbidente:      ml {0}", Ammorbidente);
-        Console.WriteLine("Gettoni:           {0}", Gettoni);
-        Console.WriteLine();
-    }
-}
-
-public class Lavaggio
-{
-    public string Nome { get; set; }
-    public int Costo { get; set; }
-    public int Durata { get; set; }
-    public int Detersivo { get; set; }
-    public int Ammorbidente { get; set; }
-
-    public Lavaggio(string nome, int costo, int durata, int detersivo, int ammorbidente)
-    {
-        Nome = nome;
-        Costo = costo;
-        Durata = durata;
-        Detersivo = detersivo;
-        Ammorbidente = ammorbidente;
-    }
-}
-
-public class Asciugatrice
-{
-    public Asciugatura[] asciugatureDisponibili = new Asciugatura[2];
-    public int Id { get; }
-    public int DurataAsciugatura { get; set; }
-    public int Gettoni { get; set; }
-    public bool IsActive { get; set; }
-    public Asciugatura AsciugaturaAttuale { get; set; }
-
-    public Asciugatrice(int id)
-    {
-        Id = id;
-        DurataAsciugatura = 0;
-        IsActive = false;
-
-
-        // inserisco i programmi di lavaggio
-        asciugatureDisponibili[0] = new Asciugatura("rapido", 2, 30);
-        asciugatureDisponibili[1] = new Asciugatura("intenso", 4, 60);
-
-    }
-
-    public void AvviaAsciugatura(string asciugatura)
-    {
-        bool asciugaturaTrovata = false;
-        int indiceAsciugatura = 0;
-
-        for (int i = 0; i < asciugatureDisponibili.Length; i++)
-        {
-            if (asciugatura.Equals(asciugatureDisponibili[i].Nome))
-            {
-                indiceAsciugatura = i;
-                asciugaturaTrovata = true;
-            }
-        }
-
-        if (asciugaturaTrovata)
-        {
-            AsciugaturaAttuale = asciugatureDisponibili[indiceAsciugatura];
-            DurataAsciugatura = asciugatureDisponibili[indiceAsciugatura].Durata;
-            Gettoni += asciugatureDisponibili[indiceAsciugatura].Costo;
-            IsActive = true;
-        }
-    }
-
-    //2 - Possa essere richiesto il dettaglio di una macchina:
-    //Tutte le informazioni relative alla macchina, nome del macchinario,
-    //stato del macchinario (in funzione o no), tipo di lavaggio in corso,
-    //quantità di detersivo presente (se una lavatrice), durata del lavaggio.
-    public void StatoMacchina()
-    {
-        Console.WriteLine();
-        Console.WriteLine("Asciugatrice:         {0}", Id);
-        string stato = "inattiva";
-        if (IsActive)
-            stato = "attiva";
-        Console.WriteLine("Stato:                {0}", stato);
-        if (IsActive)
-        {
-            Console.WriteLine("Asciugatura:          {0}", AsciugaturaAttuale.Nome);
-            Console.WriteLine("Durata Asciugatura:   min {0}", DurataAsciugatura);
-        }
-        Console.WriteLine("Gettoni:              {0}", Gettoni);
-        Console.WriteLine();
-    }
-}
-
-public class Asciugatura
-{
-    public string Nome { get; set; }
-    public int Costo { get; set; }
-    public int Durata { get; set; }
-
-    public Asciugatura(string nome, int costo, int durata)
-    {
-        Nome = nome;
-        Costo = costo;
-        Durata = durata;
     }
 }
