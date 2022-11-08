@@ -24,7 +24,7 @@ public class Lavatrice : MacchinarioLavanderia
 
     }
 
-    public void AvviaLavaggio(string lavaggio)
+    public override void AvviaProgramma(string lavaggio)
     {
         bool lavaggioTrovato = false;
         int indiceLavaggio = 0;
@@ -52,7 +52,7 @@ public class Lavatrice : MacchinarioLavanderia
     //Tutte le informazioni relative alla macchina, nome del macchinario,
     //stato del macchinario (in funzione o no), tipo di lavaggio in corso,
     //quantità di detersivo presente (se una lavatrice), durata del lavaggio.
-    public void StatoMacchina()
+    public override void StatoMacchina()
     {
         Console.WriteLine();
         Console.WriteLine("Lavatrice:         {0}", Id);

@@ -16,7 +16,7 @@ public class Asciugatrice : MacchinarioLavanderia
 
     }
 
-    public void AvviaAsciugatura(string asciugatura)
+    public override void AvviaProgramma(string asciugatura)
     {
         bool asciugaturaTrovata = false;
         int indiceAsciugatura = 0;
@@ -42,7 +42,7 @@ public class Asciugatrice : MacchinarioLavanderia
     //Tutte le informazioni relative alla macchina, nome del macchinario,
     //stato del macchinario (in funzione o no), tipo di lavaggio in corso,
     //quantità di detersivo presente (se una lavatrice), durata del lavaggio.
-    public void StatoMacchina()
+    public override void StatoMacchina()
     {
         Console.WriteLine();
         Console.WriteLine("Asciugatrice:         {0}", Id);

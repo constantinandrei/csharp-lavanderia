@@ -20,11 +20,11 @@ using System.Security.Cryptography.X509Certificates;
 
 
 Lavanderia fastWash = new Lavanderia("Fast Wash");
-fastWash.lavatrici[0].AvviaLavaggio("rinnovante");
-fastWash.lavatrici[2].AvviaLavaggio("sgrassante");
-fastWash.asciugatrici[1].AvviaAsciugatura("rapido");
-fastWash.asciugatrici[2].AvviaAsciugatura("rapido");
-fastWash.asciugatrici[4].AvviaAsciugatura("intenso");
+fastWash.lavatrici[0].AvviaProgramma("rinnovante");
+fastWash.lavatrici[2].AvviaProgramma("sgrassante");
+fastWash.asciugatrici[1].AvviaProgramma("rapido");
+fastWash.asciugatrici[2].AvviaProgramma("rapido");
+fastWash.asciugatrici[4].AvviaProgramma("intenso");
 fastWash.StatoMacchine();
 fastWash.lavatrici[0].StatoMacchina();
 fastWash.lavatrici[4].StatoMacchina();
