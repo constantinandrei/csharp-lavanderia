@@ -46,16 +46,16 @@ public class Asciugatrice : MacchinarioLavanderia
     {
         Console.WriteLine();
         Console.WriteLine("Asciugatrice:         {0}", Id);
-        //string stato = "inattiva";
-        //if (IsActive)
-        //    stato = "attiva";
-        //Console.WriteLine("Stato:                {0}", stato);
-        //if (IsActive)
-        //{
-        //    Console.WriteLine("Asciugatura:          {0}", AsciugaturaAttuale.Nome);
-        //    Console.WriteLine("Durata Asciugatura:   min {0}", DurataAsciugatura);
-        //}
-        //Console.WriteLine("Gettoni:              {0}", Gettoni);
-        //Console.WriteLine();
+        string stato = "inattiva";
+        if (ProgrammaCorrente != null)
+            stato = "attiva";
+        Console.WriteLine("Stato:                {0}", stato);
+        if (ProgrammaCorrente != null)
+        {
+            Console.WriteLine("Asciugatura:          {0}", ProgrammaCorrente.Nome);
+            Console.WriteLine("Durata Asciugatura:   min {0}", ProgrammaCorrente.Durata);
+        }
+        Console.WriteLine("Gettoni:              {0}", Gettoni);
+        Console.WriteLine();
     }
 }

@@ -56,17 +56,17 @@ public class Lavatrice : MacchinarioLavanderia
     {
         Console.WriteLine();
         Console.WriteLine("Lavatrice:         {0}", Id);
-        //string stato = "inattiva";
-        //if (IsActive)
-        //    stato = "attiva";
-        //Console.WriteLine("Stato:             {0}", stato);
-        //if (IsActive) 
-        //{
-        //    Console.WriteLine("Lavaggio:          {0}", LavaggioAttuale.Nome);
-        //    Console.WriteLine("Durata Lavaggio:   min {0}", DurataLavaggio);
-        //}
-        Console.WriteLine("Detersivo:         ml {0}", Detersivo);
-        Console.WriteLine("Ammorbidente:      ml {0}", Ammorbidente);
+        string stato = "inattiva";
+        if (ProgrammaCorrente != null)
+            stato = "attiva";
+        Console.WriteLine("Stato:             {0}", stato);
+        if (ProgrammaCorrente != null)
+        {
+            Console.WriteLine("Lavaggio:          {0}", ProgrammaCorrente.Nome);
+            Console.WriteLine("Durata Lavaggio:   min {0}", ProgrammaCorrente.Durata);
+        }
+        Console.WriteLine("Detersivo:         ml {0}", Detersivo.Livello);
+        Console.WriteLine("Ammorbidente:      ml {0}", Ammorbidente.Livello);
         Console.WriteLine("Gettoni:           {0}", Gettoni);
         Console.WriteLine();
     }

@@ -34,24 +34,21 @@ fastWash.IncassoTotale();
 public class Lavanderia
 {
     public string Nome {get;}
-    public List<MacchinarioLavanderia> Macchinari {get;}
+    public Lavatrice[] lavatrici = new Lavatrice[5];
+    public Asciugatrice[] asciugatrici = new Asciugatrice[5];
     public double ValoreGettone { get;set;}
     public Lavanderia(string nome)
     {
-        Macchinari = new List<MacchinarioLavanderia>();
         Nome = nome;
         ValoreGettone = 0.5;
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < lavatrici.Length; i++)
         {
-            if (i < 5)
-            {
-                Macchinari.Add(new Lavatrice(i + 1));
-            }
-            else
-            {
-                Macchinari.Add(new Asciugatrice(i + 1));
-            }
-        }  
+            lavatrici[i] = new Lavatrice(i + 1);
+        }
+        for (int i = 0; i < asciugatrici.Length; i++)
+        {
+            asciugatrici[i] = new Asciugatrice(i + 1);
+        }
     }
 
     public void StatoMacchine()
@@ -62,27 +59,27 @@ public class Lavanderia
         Console.WriteLine("--------------------------------");
         Console.WriteLine("numero  | stato                 ");
         Console.WriteLine("--------------------------------");
-        //for (int i = 0; i < lavatrici.Length; i++)
-        //{
-        //    string stato = "ferma";
-        //    if (lavatrici[i].IsActive)
-        //        stato = "in funzione";
-        //    Console.WriteLine($"  {lavatrici[i].Id}     | {stato} ");
-        //}
+        for (int i = 0; i < lavatrici.Length; i++)
+        {
+            string stato = "ferma";
+            if (lavatrici[i].ProgrammaCorrente != null)
+                stato = "in funzione";
+            Console.WriteLine($"  {lavatrici[i].Id}     | {stato} ");
+        }
 
-        //Console.WriteLine("--------------------------------");
-        //Console.WriteLine();
-        //Console.WriteLine("Stato Asciugatrici:");
-        //Console.WriteLine("--------------------------------");
-        //Console.WriteLine("numero  | stato                 ");
-        //Console.WriteLine("--------------------------------");
-        //for (int i = 0; i < asciugatrici.Length; i++)
-        //{
-        //    string stato = "ferma";
-        //    if (asciugatrici[i].IsActive)
-        //        stato = "in funzione";
-        //    Console.WriteLine($"  {asciugatrici[i].Id}     | {stato} ");
-        //}
+        Console.WriteLine("--------------------------------");
+        Console.WriteLine();
+        Console.WriteLine("Stato Asciugatrici:");
+        Console.WriteLine("--------------------------------");
+        Console.WriteLine("numero  | stato                 ");
+        Console.WriteLine("--------------------------------");
+        for (int i = 0; i < asciugatrici.Length; i++)
+        {
+            string stato = "ferma";
+            if (asciugatrici[i].ProgrammaCorrente != null)
+                stato = "in funzione";
+            Console.WriteLine($"  {asciugatrici[i].Id}     | {stato} ");
+        }
 
         Console.WriteLine("--------------------------------");
         Console.WriteLine();

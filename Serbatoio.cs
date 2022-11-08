@@ -2,7 +2,7 @@
 public class Serbatoio
 {
    int MaxVolume { get; }
-   int Livello { get; set; }
+   public int Livello { get; set; }
 
     public Serbatoio(int maxVolume)
     {
