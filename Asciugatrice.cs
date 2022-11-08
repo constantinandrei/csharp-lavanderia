@@ -1,19 +1,15 @@
 ﻿// See https://aka.ms/new-console-template for more information
 public class Asciugatrice : MacchinarioLavanderia
 {
-    public Asciugatura[] asciugatureDisponibili = new Asciugatura[2];
-    public int DurataAsciugatura { get; set; }
-    public Asciugatura AsciugaturaAttuale { get; set; }
 
     public Asciugatrice(int id)
     {
         Id = id;
-        DurataAsciugatura = 0;
-
+        ProgrammiDisponibili = new ProgrammaMacchinario[2];
 
         // inserisco i programmi di lavaggio
-        asciugatureDisponibili[0] = new Asciugatura("rapido", 2, 30);
-        asciugatureDisponibili[1] = new Asciugatura("intenso", 4, 60);
+        ProgrammiDisponibili[0] = new Asciugatura("rapido", 2, 30);
+        ProgrammiDisponibili[1] = new Asciugatura("intenso", 4, 60);
 
     }
 
@@ -22,9 +18,9 @@ public class Asciugatrice : MacchinarioLavanderia
         bool asciugaturaTrovata = false;
         int indiceAsciugatura = 0;
 
-        for (int i = 0; i < asciugatureDisponibili.Length; i++)
+        for (int i = 0; i < ProgrammiDisponibili.Length; i++)
         {
-            if (asciugatura.Equals(asciugatureDisponibili[i].Nome))
+            if (asciugatura.Equals(ProgrammiDisponibili[i].Nome))
             {
                 indiceAsciugatura = i;
                 asciugaturaTrovata = true;
@@ -33,9 +29,8 @@ public class Asciugatrice : MacchinarioLavanderia
 
         if (asciugaturaTrovata)
         {
-            AsciugaturaAttuale = asciugatureDisponibili[indiceAsciugatura];
-            DurataAsciugatura = asciugatureDisponibili[indiceAsciugatura].Durata;
-            Gettoni += asciugatureDisponibili[indiceAsciugatura].Costo;
+            ProgrammaCorrente = ProgrammiDisponibili[indiceAsciugatura];
+            Gettoni += ProgrammiDisponibili[indiceAsciugatura].Costo;
             
         }
     }

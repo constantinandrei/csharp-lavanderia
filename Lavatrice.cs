@@ -1,30 +1,23 @@
 ﻿// See https://aka.ms/new-console-template for more information
 public class Lavatrice : MacchinarioLavanderia
 {
-    public Lavaggio[] lavaggiDisponibili = new Lavaggio[3];
 
-    public int Detersivo { get; set; }
-    public int MaxDetersivo { get; set; }
-    public int Ammorbidente { get; set; }
-    public int MaxAmmorbidente { get; set; }
-    public int DurataLavaggio { get; set; }
-    public Lavaggio LavaggioAttuale { get; set; }
+    public Serbatoio Detersivo { get; set; }
+    public Serbatoio Ammorbidente { get; set; }
    
     public Lavatrice(int id)
     {
         Id = id;
-        MaxDetersivo = 1000;
-        MaxAmmorbidente = 500;
         Gettoni = 0;
-        Detersivo = MaxDetersivo;
-        Ammorbidente = MaxAmmorbidente;
-        DurataLavaggio = 0;
+        Detersivo = new Serbatoio(1000);
+        Ammorbidente = new Serbatoio(500);
 
+        ProgrammiDisponibili = new ProgrammaMacchinario[3];
 
         // inserisco i programmi di lavaggio
-        lavaggiDisponibili[0] = new Lavaggio("rinfrescante", 2, 20, 20, 5);
-        lavaggiDisponibili[1] = new Lavaggio("rinnovante", 3, 40, 40, 10);
-        lavaggiDisponibili[2] = new Lavaggio("sgrassante", 4, 60, 60, 15);
+        ProgrammiDisponibili[0] = new Lavaggio("rinfrescante", 2, 20, 20, 5);
+        ProgrammiDisponibili[1] = new Lavaggio("rinnovante", 3, 40, 40, 10);
+        ProgrammiDisponibili[2] = new Lavaggio("sgrassante", 4, 60, 60, 15);
 
     }
 
@@ -33,9 +26,9 @@ public class Lavatrice : MacchinarioLavanderia
         bool lavaggioTrovato = false;
         int indiceLavaggio = 0;
 
-        for (int i = 0; i < lavaggiDisponibili.Length; i++)
+        for (int i = 0; i < ProgrammiDisponibili.Length; i++)
         {
-            if (lavaggio.Equals(lavaggiDisponibili[i].Nome))
+            if (lavaggio.Equals(ProgrammiDisponibili[i].Nome))
             {
                 indiceLavaggio = i;
                 lavaggioTrovato = true;
@@ -44,11 +37,8 @@ public class Lavatrice : MacchinarioLavanderia
 
         if (lavaggioTrovato)
         {
-            LavaggioAttuale = lavaggiDisponibili[indiceLavaggio];
-            Detersivo -= lavaggiDisponibili[indiceLavaggio].Detersivo;
-            Ammorbidente -= lavaggiDisponibili[indiceLavaggio].Ammorbidente;
-            Gettoni += lavaggiDisponibili[indiceLavaggio].Costo;
-            DurataLavaggio = lavaggiDisponibili[indiceLavaggio].Durata;
+            ProgrammaCorrente = ProgrammiDisponibili[indiceLavaggio];
+            Gettoni += ProgrammiDisponibili[indiceLavaggio].Costo;
         }
     }
 

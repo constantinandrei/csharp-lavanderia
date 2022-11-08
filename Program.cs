@@ -34,21 +34,24 @@ fastWash.IncassoTotale();
 public class Lavanderia
 {
     public string Nome {get;}
-    public Lavatrice[] lavatrici = new Lavatrice[5];
-    public Asciugatrice[] asciugatrici = new Asciugatrice[5];
+    public List<MacchinarioLavanderia> Macchinari {get;}
     public double ValoreGettone { get;set;}
     public Lavanderia(string nome)
     {
+        Macchinari = new List<MacchinarioLavanderia>();
         Nome = nome;
         ValoreGettone = 0.5;
-        for (int i = 0; i < lavatrici.Length; i++)
+        for (int i = 0; i < 10; i++)
         {
-            lavatrici[i] = new Lavatrice(i + 1);
-        }
-        for (int i = 0; i < asciugatrici.Length; i++)
-        {
-            asciugatrici[i] = new Asciugatrice(i + 1);
-        }
+            if (i < 5)
+            {
+                Macchinari.Add(new Lavatrice(i + 1));
+            }
+            else
+            {
+                Macchinari.Add(new Asciugatrice(i + 1));
+            }
+        }  
     }
 
     public void StatoMacchine()
